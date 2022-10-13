@@ -25,3 +25,6 @@ mongoose
   .then((res) => {
     console.log(`Server running at ${res.url}`.blue.underline)
   })
+  .catch((err) => {
+    console.error(err)
+  })
