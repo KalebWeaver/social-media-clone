@@ -60,12 +60,13 @@ module.exports = {
       { registerInput: { username, email, password, confirmPassword } }
     ) {
       // Validate user data
-      const { valid, errors } = validateRegisterInput(
+      const { errors, valid } = validateRegisterInput(
         username,
         email,
         password,
         confirmPassword
       )
+      
       if (!valid) {
         throw new UserInputError('Errors', { errors })
       }
