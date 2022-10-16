@@ -1,30 +1,38 @@
 const dotenv = require('dotenv').config()
 const colors = require('colors')
-const { ApolloServer } = require('apollo-server')
-const mongoose = require('mongoose')
+const express = require('express')
+const cors = require('cors')
+const bodyParser = require('body-parser')
+const { ApolloServer } = require('apollo-server-express')
+const connectDB = require('./utils/db.js')
 
 //GraphQl
 const typeDefs = require('./graphql/typeDefs')
 const resolvers = require('./graphql/resolvers')
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: ({ req }) => ({ req }),
-})
+async function startServer() {
+  await connectDB()
 
-mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+  const app = express()
+  const server = new ApolloServer({
+    uri: 'https://localhost:5000',
+    typeDefs,
+    resolvers,
+    context: ({ req }) => ({ req }),
   })
-  .then(() => {
-    console.log('MongoDB Connected'.cyan.underline)
-    return server.listen({ port: 5000 })
-  })
-  .then((res) => {
-    console.log(`Server running at ${res.url}`.blue.underline)
-  })
-  .catch((err) => {
-    console.error(err)
-  })
+  await server.start()
+
+  const corsOptions = {
+    origin: true,
+    credentials: true,
+  }
+
+  app.use(cors(corsOptions))
+
+  server.applyMiddleware({ app, path: '/', cors: false })
+
+  const PORT = process.env.PORT || 5000
+  app.listen(PORT, console.log(`Server running on port ${PORT}`.yellow.bold))
+}
+
+startServer()

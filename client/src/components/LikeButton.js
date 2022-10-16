@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/client'
 import { Button, Label, Icon } from 'semantic-ui-react'
 
 import { LIKE_POST_MUTATION } from '../utils/graphql'
-import MyPopup from '../util/MyPopup'
+import MyPopup from '../utils/MyPopup'
 
 export default function LikeButton({ user, post: { id, likeCount, likes } }) {
   const [liked, setLiked] = useState(false)

@@ -13,6 +13,7 @@ import './App.css'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import SinglePost from './pages/SinglePost'
 
 //----Components----//
 import MenuBar from './components/MenuBar'
@@ -32,6 +33,7 @@ function App() {
             {/*----Protected----*/}
             <Route element={<AuthRoute />}>
               <Route path="/" element={<Home />} />
+              <Route path="/posts/:postId" element={<SinglePost />} />
             </Route>
           </Routes>
         </Container>
