@@ -66,7 +66,7 @@ module.exports = {
         password,
         confirmPassword
       )
-      
+
       if (!valid) {
         throw new UserInputError('Errors', { errors })
       }

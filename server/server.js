@@ -2,6 +2,7 @@ const dotenv = require('dotenv').config()
 const colors = require('colors')
 const express = require('express')
 const cors = require('cors')
+const path = require('path')
 const bodyParser = require('body-parser')
 const { ApolloServer } = require('apollo-server-express')
 const connectDB = require('./utils/db.js')
@@ -28,6 +29,18 @@ async function startServer() {
   }
 
   app.use(cors(corsOptions))
+
+  if (process.env.NODE_ENV == 'production') {
+    app.use(express.static(path.join(__dirname, '../client/build')))
+
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, '../client/build/index.html'))
+    })
+  } else {
+    app.get('/', (req, res) => {
+      res.send('API is running')
+    })
+  }
 
   server.applyMiddleware({ app, path: '/', cors: false })
 
