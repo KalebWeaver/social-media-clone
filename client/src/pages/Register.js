@@ -1,10 +1,16 @@
-import { useState } from 'react'
-import { gql, useMutation } from '@apollo/client'
+import { useContext, useState } from 'react'
+import { useMutation } from '@apollo/client'
 import { Form, Button } from 'semantic-ui-react'
+import { useNavigate } from 'react-router-dom'
 
+import { AuthContext } from '../context/auth'
 import { useForm } from '../utils/hooks'
+import { REGISTER_USER } from '../utils/graphql'
 
 export default function Register() {
+  const navigate = useNavigate()
+
+  const context = useContext(AuthContext)
   const [errors, setErrors] = useState({})
 
   const { onChange, onSubmit, values } = useForm(registerUser, {
@@ -15,11 +21,11 @@ export default function Register() {
   })
 
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
-    update(_, result) {
-      console.log(result)
+    update(_, { data: { register: userData } }) {
+      context.login(userData)
+      navigate('/')
     },
     onError(err) {
-      console.log(err.graphQLErrors[0].extensions.errors)
       setErrors(err.graphQLErrors[0].extensions.errors)
     },
     variables: values,
@@ -85,27 +91,3 @@ export default function Register() {
     </div>
   )
 }
-
-const REGISTER_USER = gql`
-  mutation register(
-    $username: String!
-    $email: String!
-    $password: String!
-    $confirmPassword: String!
-  ) {
-    register(
-      registerInput: {
-        username: $username
-        email: $email
-        password: $password
-        confirmPassword: $confirmPassword
-      }
-    ) {
-      id
-      email
-      username
-      createdAt
-      token
-    }
-  }
-`
