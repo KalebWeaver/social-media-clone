@@ -7,6 +7,11 @@ import { AuthContext } from '../context/auth'
 import { useForm } from '../utils/hooks'
 import { REGISTER_USER } from '../utils/graphql'
 
+const options = [
+  { key: 'm', text: 'Male', value: 'male' },
+  { key: 'f', text: 'Female', value: 'female' },
+]
+
 export default function Register() {
   const navigate = useNavigate()
 
@@ -16,6 +21,7 @@ export default function Register() {
   const { onChange, onSubmit, values } = useForm(registerUser, {
     username: '',
     email: '',
+    gender: '',
     password: '',
     confirmPassword: '',
   })
@@ -57,6 +63,15 @@ export default function Register() {
           error={errors.email ? true : false}
           onChange={onChange}
         />
+        <Form.Dropdown
+          fluid
+          label="Gender"
+          placeholder="Gender"
+          name="gender"
+          options={options}
+          error={errors.gender ? true : false}
+          onChange={onChange}
+        />
         <Form.Input
           label="Password"
           placeholder="Password..."
@@ -88,6 +103,7 @@ export default function Register() {
           </ul>
         </div>
       )}
+      <div>{JSON.stringify(values)}</div>
     </div>
   )
 }

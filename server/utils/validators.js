@@ -1,4 +1,10 @@
-const validateRegisterInput = (username, email, password, confirmPassword) => {
+const validateRegisterInput = (
+  username,
+  email,
+  gender,
+  password,
+  confirmPassword
+) => {
   const errors = {}
   if (username.trim() === '') {
     errors.username = 'Username must not be empty'
@@ -10,6 +16,9 @@ const validateRegisterInput = (username, email, password, confirmPassword) => {
     if (!email.match(regEx)) {
       errors.email = 'Email must be a valid email address'
     }
+  }
+  if (gender.trim() === '') {
+    errors.gender = 'Please select gender'
   }
   if (password === '') {
     errors.password = 'Password must not empty'

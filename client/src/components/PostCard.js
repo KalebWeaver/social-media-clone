@@ -13,6 +13,8 @@ export default function PostCard({
 }) {
   const { user } = React.useContext(AuthContext)
 
+  console.log(user)
+
   return (
     <Card fluid>
       <Card.Content>

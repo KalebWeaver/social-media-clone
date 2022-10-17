@@ -15,6 +15,8 @@ function generateToken(user) {
       id: user.id,
       email: user.email,
       username: user.username,
+      gender: user.gender,
+      profile: user.profile,
     },
     process.env.SECRET_KEY,
     { expiresIn: '1h' }
@@ -57,12 +59,13 @@ module.exports = {
     },
     async register(
       _,
-      { registerInput: { username, email, password, confirmPassword } }
+      { registerInput: { username, email, gender, password, confirmPassword } }
     ) {
       // Validate user data
       const { errors, valid } = validateRegisterInput(
         username,
         email,
+        gender,
         password,
         confirmPassword
       )
@@ -86,6 +89,11 @@ module.exports = {
       const newUser = new User({
         email,
         username,
+        gender,
+        profile:
+          gender === 'male'
+            ? 'https://react.semantic-ui.com/images/avatar/large/elliot.jpg'
+            : 'https://react.semantic-ui.com/images/avatar/large/molly.png',
         password,
         createdAt: new Date().toISOString(),
       })
