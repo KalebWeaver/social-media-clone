@@ -7,6 +7,7 @@ export const FETCH_POSTS_QUERY = gql`
       body
       createdAt
       username
+      profile
       likeCount
       commentCount
       likes {
@@ -29,6 +30,7 @@ export const FETCH_POST_QUERY = gql`
       body
       createdAt
       username
+      profile
       likeCount
       likes {
         username
@@ -50,6 +52,8 @@ export const LOGIN_USER = gql`
       id
       email
       username
+      gender
+      profile
       createdAt
       token
     }
@@ -60,6 +64,7 @@ export const REGISTER_USER = gql`
   mutation register(
     $username: String!
     $email: String!
+    $gender: String!
     $password: String!
     $confirmPassword: String!
   ) {
@@ -67,6 +72,7 @@ export const REGISTER_USER = gql`
       registerInput: {
         username: $username
         email: $email
+        gender: $gender
         password: $password
         confirmPassword: $confirmPassword
       }
@@ -74,6 +80,8 @@ export const REGISTER_USER = gql`
       id
       email
       username
+      gender
+      profile
       createdAt
       token
     }
@@ -87,6 +95,7 @@ export const CREATE_POST_MUTATION = gql`
       body
       createdAt
       username
+      profile
       likes {
         id
         username

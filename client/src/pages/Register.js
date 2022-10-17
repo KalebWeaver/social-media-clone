@@ -18,7 +18,7 @@ export default function Register() {
   const context = useContext(AuthContext)
   const [errors, setErrors] = useState({})
 
-  const { onChange, onSubmit, values } = useForm(registerUser, {
+  const { onChange, selectChange, onSubmit, values } = useForm(registerUser, {
     username: '',
     email: '',
     gender: '',
@@ -63,14 +63,15 @@ export default function Register() {
           error={errors.email ? true : false}
           onChange={onChange}
         />
-        <Form.Dropdown
+        <Form.Select
           fluid
           label="Gender"
           placeholder="Gender"
           name="gender"
           options={options}
+          value={values.gender}
           error={errors.gender ? true : false}
-          onChange={onChange}
+          onChange={selectChange}
         />
         <Form.Input
           label="Password"

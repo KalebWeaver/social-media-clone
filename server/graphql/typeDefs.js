@@ -6,6 +6,7 @@ module.exports = gql`
     body: String!
     createdAt: String!
     username: String!
+    profile: String!
     likes: [Like]!
     likeCount: Int!
     comments: [Comment]!
@@ -33,9 +34,10 @@ module.exports = gql`
   }
   input RegisterInput {
     username: String!
+    email: String!
+    gender: String!
     password: String!
     confirmPassword: String!
-    email: String!
   }
   type Query {
     getPosts: [Post]
@@ -49,8 +51,5 @@ module.exports = gql`
     createComment(postId: ID!, body: String!): Post!
     deleteComment(postId: ID!, commentId: ID!): Post!
     likePost(postId: ID!): Post!
-  }
-  type Subscription {
-    newPost: Post!
   }
 `

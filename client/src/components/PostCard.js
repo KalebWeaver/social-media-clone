@@ -9,20 +9,23 @@ import DeleteButton from './DeleteButton'
 import MyPopup from '../utils/MyPopup'
 
 export default function PostCard({
-  post: { body, createdAt, id, username, likeCount, commentCount, likes },
+  post: {
+    body,
+    createdAt,
+    id,
+    username,
+    profile,
+    likeCount,
+    commentCount,
+    likes,
+  },
 }) {
   const { user } = React.useContext(AuthContext)
-
-  console.log(user)
 
   return (
     <Card fluid>
       <Card.Content>
-        <Image
-          floated="right"
-          size="mini"
-          src="https://react.semantic-ui.com/images/avatar/large/molly.png"
-        />
+        <Image floated="right" size="mini" src={profile} />
         <Card.Header>{username}</Card.Header>
         <Card.Meta as={Link} to={`/posts/${id}`}>
           {moment(createdAt).fromNow(true)}
