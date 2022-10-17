@@ -1,3 +1,6 @@
+
+
+
 .page-title {
   display: block !important;
   text-align: center;
@@ -9,7 +12,7 @@
   width: 500px;
   margin: 0 auto;
   margin-top: 200px;
-  padding: 60px;
+  padding: 40px;
   border: 1px solid #ccc;
   border-radius: 20px;
   box-shadow: 0 0 10px #ccc;
@@ -17,7 +20,31 @@
 
 .login-buttons {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+  width: 100%;
+  row-gap: 20px;
 }
+
+.remember-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.register-button {
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 480px) {
+  .form-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 0;
+    box-shadow: none;
+  }
+}
+  

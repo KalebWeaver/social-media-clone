@@ -58,7 +58,7 @@ export default function SinglePost(props) {
     } = getPost
 
     postMarkup = (
-      <Grid>
+      <Grid stackable>
         <Grid.Row>
           <Grid.Column width={2}>
             <Image src={profile} size="small" float="right" />
@@ -79,10 +79,10 @@ export default function SinglePost(props) {
                     labelPosition="right"
                     onClick={() => console.log('Comment on post')}
                   >
-                    <Button basic color="blue">
+                    <Button basic color="teal">
                       <Icon name="comments" />
                     </Button>
-                    <Label basic color="blue" pointing="left">
+                    <Label basic color="teal" pointing="left">
                       {commentCount}
                     </Label>
                   </Button>

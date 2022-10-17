@@ -91,9 +91,11 @@ export default function Register() {
           error={errors.confirmPassword ? true : false}
           onChange={onChange}
         />
-        <Button type="submit" primary>
-          Register
-        </Button>
+        <div className="register-button">
+          <Button type="submit" color="teal" fluid>
+            Register
+          </Button>
+        </div>
       </Form>
       {Object.keys(errors).length > 0 && (
         <div className="ui error message">
@@ -104,7 +106,6 @@ export default function Register() {
           </ul>
         </div>
       )}
-      <div>{JSON.stringify(values)}</div>
     </div>
   )
 }

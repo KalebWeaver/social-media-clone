@@ -81,7 +81,7 @@ export default function Login(props) {
             label="Remember Me"
             className="remember-button"
           />
-          <Button type="submit" color="teal">
+          <Button type="submit" color="teal" fluid>
             Login
           </Button>
         </div>
@@ -95,7 +95,6 @@ export default function Login(props) {
           </ul>
         </div>
       )}
-      <div>{JSON.stringify(values)}</div>
     </div>
   )
 }
