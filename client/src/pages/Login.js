@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react'
-import { Button, Form } from 'semantic-ui-react'
+import { useContext, useState, useEffect } from 'react'
+import { Button, Form, Checkbox } from 'semantic-ui-react'
 import { useMutation } from '@apollo/client'
 import { useNavigate } from 'react-router-dom'
 
@@ -13,10 +13,29 @@ export default function Login(props) {
   const context = useContext(AuthContext)
   const [errors, setErrors] = useState({})
 
-  const { onChange, onSubmit, values } = useForm(loginUserCallback, {
+  const { onChange, onSubmit, setValues, values } = useForm(loginUserCallback, {
     username: '',
     password: '',
   })
+
+  const [remember, setRemember] = useState(values.username ? true : false)
+
+  useEffect(() => {
+    const userName = localStorage.getItem('userName')
+
+    if (userName !== null) {
+      setValues({ ...values, username: userName })
+      setRemember(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (remember === true) {
+      localStorage.setItem('userName', values.username)
+    } else {
+      localStorage.removeItem('userName')
+    }
+  }, [remember, values.username])
 
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
     update(_, { data: { login: userData } }) {
@@ -55,9 +74,17 @@ export default function Login(props) {
           error={errors.password ? true : false}
           onChange={onChange}
         />
-        <Button type="submit" primary>
-          Login
-        </Button>
+        <div className="login-buttons">
+          <Checkbox
+            checked={remember}
+            onChange={() => setRemember(!remember)}
+            label="Remember Me"
+            className="remember-button"
+          />
+          <Button type="submit" color="teal">
+            Login
+          </Button>
+        </div>
       </Form>
       {Object.keys(errors).length > 0 && (
         <div className="ui error message">
@@ -68,6 +95,7 @@ export default function Login(props) {
           </ul>
         </div>
       )}
+      <div>{JSON.stringify(values)}</div>
     </div>
   )
 }

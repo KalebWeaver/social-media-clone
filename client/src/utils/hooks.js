@@ -21,6 +21,7 @@ export const useForm = (callback, initialState = {}) => {
     onChange,
     selectChange,
     onSubmit,
+    setValues,
     values,
   }
 }

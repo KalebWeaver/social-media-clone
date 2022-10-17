@@ -6,6 +6,18 @@
 }
 
 .form-container {
-  width: 400px;
+  width: 500px;
   margin: 0 auto;
+  margin-top: 200px;
+  padding: 60px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-shadow: 0 0 10px #ccc;
+}
+
+.login-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
 }
